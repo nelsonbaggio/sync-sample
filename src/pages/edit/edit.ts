@@ -1,4 +1,4 @@
-import { THFSyncService } from '@totvs/thf-mobile/app/services/thf-sync/thf-sync.service';
+import { ThfSyncService } from '@totvs/thf-sync';
 import { Customer } from './../../models/customer.model';
 import { Http, HttpModule } from '@angular/http';
 import { Component } from '@angular/core';
@@ -12,7 +12,7 @@ import { NavController, NavParams, AlertController, ViewController } from 'ionic
 export class EditPage {
   customer: Customer = new Customer();
   title: string = '';
-  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public thfSync: THFSyncService, public alertCtrl: AlertController) {
+  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public thfSync: ThfSyncService, public alertCtrl: AlertController) {
     if (navParams.get('customer')) {
       this.title = "Edição";
       this.customer = navParams.get('customer') as Customer;

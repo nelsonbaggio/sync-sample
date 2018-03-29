@@ -1,4 +1,4 @@
-import { THFSyncService } from '@totvs/thf-mobile/app/services/thf-sync/thf-sync.service';
+import { ThfSyncService, ThfSyncModule } from '@totvs/thf-sync';
 import { Util } from './../providers/util/util';
 // import { SyncQueue } from './../providers/sync_queue/sync_queue';
 import { EditPage } from './../pages/edit/edit';
@@ -13,8 +13,8 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
-import { THFStorageService } from '@totvs/thf-mobile/app/services/thf-storage/thf-storage.service';
-import { THFEventSourcingService } from '@totvs/thf-mobile/app/services/thf-event-sourcing/thf-event-sourcing.service';
+// import { THFStorageService } from '@totvs/thf-mobile/app/services/thf-storage/thf-storage.service';
+// import { THFEventSourcingService } from '@totvs/thf-mobile/app/services/thf-event-sourcing/thf-event-sourcing.service';
 
 @NgModule({
   declarations: [
@@ -26,13 +26,9 @@ import { THFEventSourcingService } from '@totvs/thf-mobile/app/services/thf-even
   imports: [
     BrowserModule,
     HttpModule,
-    IonicStorageModule.forRoot(
-      // {
-      //   name: '_thf_sync_db',
-      //   driverOrder: ['sqlite', 'websql', 'indexeddb']
-      // }
-    ),
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp),
+    ThfSyncModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,11 +42,11 @@ import { THFEventSourcingService } from '@totvs/thf-mobile/app/services/thf-even
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     // SyncQueue,
-    THFStorageService,
+    // THFStorageService,
     Util,
     // RequestProvider,
-    THFSyncService,
-    THFEventSourcingService
+    // THFSyncService,
+    // THFEventSourcingService
   ]
 })
 export class AppModule { }

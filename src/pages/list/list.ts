@@ -1,14 +1,14 @@
-import { THFStorageService } from '@totvs/thf-mobile/app/services/thf-storage/thf-storage.service';
+// import { THFStorageService } from '@totvs/thf-mobile/app/services/thf-storage/thf-storage.service';
 import { Network } from '@ionic-native/network';
-import { THFSyncService } from '@totvs/thf-mobile/app/services/thf-sync/thf-sync.service';
+import { ThfSyncService } from '@totvs/thf-sync';
 import { Customer } from './../../models/customer.model';
 import { EditPage } from './../edit/edit';
 import { Http } from '@angular/http';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
-import { THFModelSchema } from '@totvs/thf-mobile/app/models/thf-model-schema';
-import { THFSyncConfig } from '@totvs/thf-mobile/app/models/thf-sync-config';
-import { THFNetworkType } from '@totvs/thf-mobile/app/enums/thf-network-type.enum';
+import { ThfSchema } from '@totvs/thf-sync';
+import { ThfSyncConfig } from '@totvs/thf-sync/models/thf-sync-config.model';
+import { ThfNetworkType } from '@totvs/thf-sync/enums/thf-network-type.enum';
 
 @Component({
   selector: 'page-list',
@@ -22,7 +22,7 @@ export class ListPage {
   currentPage: number;
   // eventSourcing: THFEventSourcing;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private toastCtrl: ToastController, private thfSync: THFSyncService, private thfStorage: THFStorageService, private network: Network, private _http: Http, ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private toastCtrl: ToastController, private thfSync: ThfSyncService, private network: Network, private _http: Http) {
     this.currentPage = 1;
     this.hasNext = false;
     // let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
@@ -47,9 +47,9 @@ export class ListPage {
   }
 
   mapSchemas(): Promise<any> {
-    let customerSchema = new THFModelSchema({
-      getUrlApi: 'http://thfservices.totvs.com.br/customer-api/api/v1/customers',
-      diffUrlApi: 'http://thfservices.totvs.com.br/customer-api/api/v1/customers/diff',
+    let customerSchema = new ThfSchema({
+      getUrlApi: 'http://localhost:8200/api/v1/customers',
+      diffUrlApi: 'http://localhost:8200/api/v1/customers/diff',
       name: 'Customers',
       fields: [
         'id', 'name'
@@ -71,7 +71,7 @@ export class ListPage {
     //   idField: 'id'
     // });
 
-    return this.thfSync.prepare([customerSchema], new THFSyncConfig(THFNetworkType._3g, 10))
+    return this.thfSync.prepare([customerSchema], new ThfSyncConfig(ThfNetworkType._ethernet, 10))
       .then(() => {
         console.log("Schemas mapped");
       });
