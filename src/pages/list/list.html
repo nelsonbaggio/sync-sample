@@ -25,7 +25,7 @@
 
     <ion-list>
         <button ion-item *ngFor="let customer of customers" (click)="itemTapped($event, customer)">
-            {{customer.name}}
+            {{customer.name}} - ({{customer.myStatus}})
         </button>
         <ion-label *ngIf="!customers || customers.length == 0">Nenhum cliente encontrado</ion-label>
     </ion-list>

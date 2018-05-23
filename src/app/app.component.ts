@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HomePage } from '../pages/home/home';
-import { Http } from '@angular/http';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +17,7 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any }>;
 
-  constructor(public http: Http, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation

@@ -1,5 +1,5 @@
 import { ThfSyncService } from '@totvs/thf-sync';
-import { ThfSchema } from '@totvs/thf-sync';
+import { ThfSyncSchema } from '@totvs/thf-sync';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
@@ -15,7 +15,7 @@ export class HomePage {
   }
 
   buildSchemas() {
-    let customerSchema = new ThfSchema({
+    let customerSchema: ThfSyncSchema = {
       getUrlApi: 'http://localhost:8200/api/v1/customers',
       diffUrlApi: 'http://localhost:8200/api/v1/customers/diff',
       name: 'Customers',
@@ -26,9 +26,9 @@ export class HomePage {
       pageSize: 20,
       deletedField: 'deleted',
 
-    });
+    };
 
-    let userSchema = new ThfSchema({
+    let userSchema: ThfSyncSchema = {
       getUrlApi: 'http://localhost:8200/api/v1/users',
       diffUrlApi: 'http://localhost:8200/api/v1/users/diff',
       name: 'Users',
@@ -38,7 +38,7 @@ export class HomePage {
       ],
       pageSize: 20,
       deletedField: 'deleted',
-    });
+    };
 
     this.thfSync.prepare([customerSchema, userSchema])
       .then(() => {

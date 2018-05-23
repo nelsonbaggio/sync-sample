@@ -1,8 +1,9 @@
-import { ThfSyncService } from '@totvs/thf-sync';
+import { ThfSyncService, ThfHttpRequestData, ThfHttpRequestType } from '@totvs/thf-sync';
 import { Customer } from './../../models/customer.model';
 import { Http, HttpModule } from '@angular/http';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'page-edit',
@@ -23,10 +24,40 @@ export class EditPage {
 
   save() {
     const model = this.thfSync.getModel("Customers");
-
     model.save(this.customer)
       .then(() => {
-        this.showAlert('Dados salvos com sucesso!');
+        const paramRequest: ThfHttpRequestData = {
+            url: 'http://thfservices.totvs.com.br/customer-api/api/v1/customers',
+            method: ThfHttpRequestType.GET,
+            body: { value: 'Email de bem vindo' }
+        }
+
+        // const paramRequest2: ThfHttpRequestData = {
+        //     url: 'http://thfservices.totvs.com.br/customer-api/api/v1/customers/2537b247-0cdc-429b-8932-1cb60eb93a66',
+        //     method: ThfHttpRequestType.DELETE
+        // }
+
+        // const paramRequest3: ThfHttpRequestData = {
+        //     url: 'http://thfservices.totvs.com.br/customer-api/api/v1/customers/3db92c83-3ac8-43ab-af24-1798f2f818f7',
+        //     method: ThfHttpRequestType.PUT,
+        //     body: { value: 'oi 2' }
+        // }
+
+            this.thfSync.insertHttpCommand(paramRequest, "myHttpCustomId")
+                // .then(() => this.thfSync.insertHttpCommand(paramRequest2))
+                // .then(() => this.thfSync.insertHttpCommand(paramRequest3))
+                .then(() => this.showAlert('Dados salvos com sucesso!'));
+        // this.thfSync.insertHttpCommand(paramRequest)
+        // .then(() => {
+        //     this.showAlert('Dados salvos com sucesso!');
+        //     // this.thfSync.getPendingEventSourcing(id).subscribe((response) => {
+        //     // });
+        //     // obs.subscribe((response) => {
+        //     //     console.log("RECEBI RESPONSE: ", response);
+        //     // });
+
+        // });
+
       });
   }
 

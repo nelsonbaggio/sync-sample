@@ -1,4 +1,4 @@
-import { ThfSyncService, ThfSyncModule } from '@totvs/thf-sync';
+import { ThfSyncModule } from '@totvs/thf-sync';
 import { Util } from './../providers/util/util';
 // import { SyncQueue } from './../providers/sync_queue/sync_queue';
 import { EditPage } from './../pages/edit/edit';
